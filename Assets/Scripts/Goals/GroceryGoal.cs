@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MpcDailyRoutines
+namespace NpcDailyRoutines
 {
-	public class IsAtHome : WorldKeyBase
-	{
-	}
+    public class GroceryGoal : GoalBase
+    {
+    } 
 }
