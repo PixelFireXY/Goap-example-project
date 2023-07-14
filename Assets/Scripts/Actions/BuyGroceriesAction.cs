@@ -38,7 +38,7 @@ namespace NpcDailyRoutines
                 return ActionRunState.Continue;
 
             // Increase groceries by 1 when shopping is done
-            data.Inventory.Groceries += 1;
+            data.Kitchen.food += 1;
 
             return ActionRunState.Stop;
         }
@@ -60,7 +60,7 @@ namespace NpcDailyRoutines
             [GetComponent]
             public MoneyBehaviour Money { get; set; }
             [GetComponent]
-            public InventoryBehaviour Inventory { get; set; }
+            public KitchenSource Kitchen { get; set; }
         }
     }
 

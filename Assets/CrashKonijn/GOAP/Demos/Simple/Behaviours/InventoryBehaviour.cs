@@ -8,8 +8,6 @@ namespace Demos.Simple.Behaviours
     {
         public List<AppleBehaviour> Apples = new ();
 
-        public int Groceries { get; internal set; }
-
         public void Put(AppleBehaviour apple)
         {
             apple.PickUp();

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace NpcDailyRoutines
 {
-    public class IsAtWorkSensor : LocalWorldSensorBase
+    public class IsHungrySensor : LocalWorldSensorBase
     {
         public override void Created() { }
 
@@ -15,8 +15,8 @@ namespace NpcDailyRoutines
 
         public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
         {
-            var workBehaviour = references.GetCachedComponent<WorkBehaviour>();
-            return new SenseValue(workBehaviour.isWorking);
+            var hungerBehaviour = references.GetCachedComponent<HungerBehaviour>();
+            return new SenseValue(hungerBehaviour.hunger > 80);
         }
     }
 }

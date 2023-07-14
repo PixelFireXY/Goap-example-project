@@ -8,6 +8,8 @@ namespace NpcDailyRoutines
     {
         public float money = 0;
 
+        public int isWorking;
+
         private void Awake()
         {
             // NPC starts without money.

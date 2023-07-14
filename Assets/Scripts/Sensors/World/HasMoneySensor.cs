@@ -1,13 +1,14 @@
 using CrashKonijn.Goap.Classes;
 using CrashKonijn.Goap.Interfaces;
 using CrashKonijn.Goap.Sensors;
+using NpcDailyRoutines;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace NpcDailyRoutines
 {
-    public class IsAtWorkSensor : LocalWorldSensorBase
+    public class HasMoneySensor : LocalWorldSensorBase
     {
         public override void Created() { }
 
@@ -15,8 +16,8 @@ namespace NpcDailyRoutines
 
         public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
         {
-            var workBehaviour = references.GetCachedComponent<WorkBehaviour>();
-            return new SenseValue(workBehaviour.isWorking);
+            var moneyBehaviour = references.GetCachedComponent<MoneyBehaviour>();
+            return new SenseValue(moneyBehaviour.money > 0);
         }
     }
 }

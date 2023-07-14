@@ -9,19 +9,15 @@ namespace NpcDailyRoutines
 {
     public class HasFoodSensor : LocalWorldSensorBase
     {
-        public override void Created()
-        {
-            throw new System.NotImplementedException();
-        }
+        public override void Created() { }
+
+        public override void Update() { }
 
         public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Update()
-        {
-            throw new System.NotImplementedException();
+            // Check if there's food in the kitchen
+            var kitchen = references.GetCachedComponent<KitchenSource>();
+            return new SenseValue(kitchen.food > 0);
         }
     }
 }

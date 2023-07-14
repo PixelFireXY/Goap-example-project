@@ -9,19 +9,14 @@ namespace NpcDailyRoutines
 {
     public class IsTiredSensor : LocalWorldSensorBase
     {
-        public override void Created()
-        {
-            throw new System.NotImplementedException();
-        }
+        public override void Created() { }
+
+        public override void Update() { }
 
         public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Update()
-        {
-            throw new System.NotImplementedException();
+            var tirednessBehaviour = references.GetCachedComponent<TirednessBehaviour>();
+            return new SenseValue(tirednessBehaviour.tiredness > 80);
         }
     }
 }
