@@ -8,25 +8,25 @@ using UnityEngine;
 
 namespace NpcDailyRoutines
 {
-    public class WorkplaceTargetSensor : LocalTargetSensorBase
+    public class KitchenTargetSensor : LocalTargetSensorBase
     {
-        private WorkplaceSource[] workplaces;
+        private KitchenSource[] kitchens;
 
         public override void Created()
         {
-            this.workplaces = GameObject.FindObjectsOfType<WorkplaceSource>();
+            this.kitchens = GameObject.FindObjectsOfType<KitchenSource>();
         }
 
         public override ITarget Sense(IMonoAgent agent, IComponentReference references)
         {
-            var closestWorkplace = this.workplaces.OrderBy(w => Vector3.Distance(w.transform.position, agent.transform.position)).FirstOrDefault();
+            var closestKitchen = this.kitchens.OrderBy(k => Vector3.Distance(k.transform.position, agent.transform.position)).FirstOrDefault();
 
-            if (closestWorkplace == null)
+            if (closestKitchen == null)
             {
                 return null;
             }
 
-            return new TransformTarget(closestWorkplace.transform);
+            return new TransformTarget(closestKitchen.transform);
         }
 
         public override void Update()

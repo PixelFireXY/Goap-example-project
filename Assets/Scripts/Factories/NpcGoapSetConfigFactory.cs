@@ -33,7 +33,7 @@ namespace NpcDailyRoutines
                 .AddEffect<IsHungry>(false) // IsHungry becomes false
                 .SetBaseCost(1)
                 .SetInRange(0.3f);
-            builder.AddAction<GoToGroceryAction>()
+            builder.AddAction<BuyGroceriesAction>()
                 .SetTarget<GroceryTarget>()
                 .AddEffect<HasFood>(true) // HasFood becomes true
                 .SetBaseCost(1)
@@ -57,7 +57,7 @@ namespace NpcDailyRoutines
             // Target Sensors
             builder.AddTargetSensor<BedTargetSensor>()
                 .SetTarget<BedTarget>();
-            builder.AddTargetSensor<FoodTargetSensor>()
+            builder.AddTargetSensor<KitchenTargetSensor>()
                 .SetTarget<FoodTarget>();
             builder.AddTargetSensor<GroceryStoreTargetSensor>()
                 .SetTarget<GroceryTarget>();
