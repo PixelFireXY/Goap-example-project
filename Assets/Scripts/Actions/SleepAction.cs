@@ -1,5 +1,6 @@
 using CrashKonijn.Goap.Behaviours;
 using CrashKonijn.Goap.Classes;
+using CrashKonijn.Goap.Classes.References;
 using CrashKonijn.Goap.Enums;
 using CrashKonijn.Goap.Interfaces;
 using Demos.Shared.Actions;
@@ -23,6 +24,14 @@ namespace NpcDailyRoutines
 
         public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
         {
+            if (data.Tiredness.tiredness > 20)
+            {
+                var sleepRecovery = context.DeltaTime * 20f;
+                data.Tiredness.tiredness -= sleepRecovery;
+
+                return ActionRunState.Continue;
+            }
+
             return ActionRunState.Stop;
         }
 
@@ -34,6 +43,9 @@ namespace NpcDailyRoutines
         public class Data : IActionData
         {
             public ITarget Target { get; set; }
+
+            [GetComponent]
+            public TirednessBehaviour Tiredness { get; set; }
         }
     } 
 }
