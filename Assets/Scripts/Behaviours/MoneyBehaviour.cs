@@ -8,22 +8,24 @@ namespace NpcDailyRoutines
     {
         public float money = 0;
 
+        [SerializeField] private float startMoney = 0;
+
         private void Awake()
         {
-            // NPC starts without money.
-            this.money = 0;
+            // NPC start money.
+            money = startMoney;
         }
 
         public void EarnMoney(float amount)
         {
             // Increase the money when the NPC works.
-            this.money += amount;
+            money += amount;
         }
 
         public void SpendMoney(float amount)
         {
             // Decrease the money when the NPC buys something.
-            this.money -= amount;
+            money -= amount;
         }
     }
 }
