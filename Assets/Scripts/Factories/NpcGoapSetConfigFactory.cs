@@ -13,6 +13,9 @@ namespace NpcDailyRoutines
             var builder = new GoapSetBuilder("NpcDailyActivitiesSet");
 
             // Goals
+            builder.AddGoal<WanderGoal>()
+                .AddCondition<IsWandering>(Comparison.GreaterThanOrEqual, 1);
+
             builder.AddGoal<SleepGoal>()
                 .AddCondition<IsTired>(Comparison.GreaterThan, 0); // IsTired == true
             builder.AddGoal<EatGoal>()
@@ -23,24 +26,28 @@ namespace NpcDailyRoutines
                 .AddCondition<IsAtWork>(Comparison.SmallerThan, 1); // IsAtWork == false
 
             // Actions
+            builder.AddAction<WanderAction>()       // Viene eseguito prima di settare lo stato
+                .SetTarget<WanderTarget>()          // Viene eseguito il target sensor
+                .AddEffect<IsWandering>(true);      // Viene settato wandergoal
+
             builder.AddAction<SleepAction>()
                 .SetTarget<BedTarget>()
-                .AddEffect<IsTired>(false) // IsTired becomes false
+                .AddEffect<IsTired>(false)
                 .SetBaseCost(1)
                 .SetInRange(0.3f);
             builder.AddAction<EatAction>()
                 .SetTarget<FoodTarget>()
-                .AddEffect<IsHungry>(false) // IsHungry becomes false
+                .AddEffect<IsHungry>(false)
                 .SetBaseCost(1)
                 .SetInRange(0.3f);
             builder.AddAction<BuyGroceriesAction>()
                 .SetTarget<GroceryTarget>()
-                .AddEffect<HasFood>(true) // HasFood becomes true
+                .AddEffect<HasFood>(true)
                 .SetBaseCost(1)
                 .SetInRange(0.3f);
             builder.AddAction<WorkAction>()
                 .SetTarget<WorkTarget>()
-                .AddEffect<IsAtWork>(true) // IsAtWork becomes true
+                .AddEffect<IsAtWork>(true)
                 .SetBaseCost(1)
                 .SetInRange(0.3f);
 
@@ -55,6 +62,9 @@ namespace NpcDailyRoutines
                 .SetKey<IsAtWork>();
 
             // Target Sensors
+            builder.AddTargetSensor<WanderTargetSensor>()
+                .SetTarget<WanderTarget>();
+
             builder.AddTargetSensor<BedTargetSensor>()
                 .SetTarget<BedTarget>();
             builder.AddTargetSensor<KitchenTargetSensor>()
