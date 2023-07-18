@@ -23,9 +23,6 @@ namespace NpcDailyRoutines
                 return;
             }
 
-            // Deduct the money
-            data.Money.money -= 50f;
-
             // Let's say shopping takes 2 hours
             data.Timer = 2f;
         }
@@ -37,8 +34,11 @@ namespace NpcDailyRoutines
             if (data.Timer > 0)
                 return ActionRunState.Continue;
 
-            // Increase groceries by 1 when shopping is done
-            data.Kitchen.food += 1;
+            // Deduct the money
+            data.Money.money -= 50f;
+
+            // Increase groceries by 5 when shopping is done
+            data.Kitchen.food += 5;
 
             return ActionRunState.Stop;
         }

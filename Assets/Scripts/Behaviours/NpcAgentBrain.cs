@@ -17,6 +17,7 @@ namespace NpcDailyRoutines
         private void Awake()
         {
             this.agent = this.GetComponent<AgentBehaviour>();
+
             this.hunger = this.GetComponent<HungerBehaviour>();
             this.tiredness = this.GetComponent<TirednessBehaviour>();
             this.work = this.GetComponent<WorkBehaviour>();

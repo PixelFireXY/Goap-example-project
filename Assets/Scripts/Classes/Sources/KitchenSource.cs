@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class KitchenSource : MonoBehaviour
 {
-    public int food { get; internal set; }
+    public int food;
 }
