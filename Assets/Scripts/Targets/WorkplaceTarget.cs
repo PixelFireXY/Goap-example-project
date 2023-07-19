@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace NpcDailyRoutines
 {
-    public class FoodTarget : TargetKeyBase
+    public class WorkplaceTarget : TargetKeyBase
     {
-    } 
+    }
+
 }

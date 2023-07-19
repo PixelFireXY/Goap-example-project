@@ -13,67 +13,61 @@ namespace NpcDailyRoutines
             var builder = new GoapSetBuilder("NpcDailyActivitiesSet");
 
             // Goals
-            builder.AddGoal<WanderGoal>()                                                   // A goal represents something that the agent desires to achieve. It contains one or more conditions that need to be met in order to achieve the goal.
-                .AddCondition<IsWandering>(Comparison.GreaterThanOrEqual, 1);               // A condition is a specific state of the world that must be true for the goal to be considered achieved. The conditions are usually expressed in terms of world states.
-            
+            builder.AddGoal<WanderGoal>()
+                .AddCondition<IsWandering>(Comparison.GreaterThanOrEqual, 1);
+
             builder.AddGoal<EatGoal>()
-                .AddCondition<IsHungry>(Comparison.GreaterThanOrEqual, 0);
-            
-            builder.AddGoal<SleepGoal>()
-                .AddCondition<IsTired>(Comparison.GreaterThanOrEqual, 0);
-            
-            builder.AddGoal<GroceryGoal>()
-                .AddCondition<HasFood>(Comparison.SmallerThan, 1);
-            
-            builder.AddGoal<WorkGoal>()
-                .AddCondition<IsAtWork>(Comparison.SmallerThan, 1);
+                .AddCondition<IsHungry>(Comparison.SmallerThan, 1);
+            //builder.AddGoal<WorkGoal>()
+            //    .AddCondition<HasMoney>(Comparison.SmallerThan, 1);
+            //builder.AddGoal<SleepGoal>()
+            //    .AddCondition<IsTired>(Comparison.GreaterThanOrEqual, 1);
 
             // Actions
-            builder.AddAction<WanderAction>()                                               // An action is something that the agent can do to change the state of the world. It contains preconditions (which must be met for the action to be performed) and effects (which describe how the action changes the world state).
-                .SetTarget<WanderTarget>()                                                  // The target is typically a specific location or object that the action involves. For example, if the action is "go to the kitchen", the target might be the kitchen's location.
-                .AddEffect<IsWandering>(true);                                              // An effect describes how the action changes the state of the world. For example, the effect of the action "eat food" might be to decrease the agent's hunger level.
+            builder.AddAction<WanderAction>()
+                .SetTarget<WanderTarget>()
+                .AddEffect<IsWandering>(true);
 
             builder.AddAction<EatAction>()
-                .SetTarget<FoodTarget>()
-                .AddEffect<IsHungry>(true);
+                .SetTarget<KitchenTarget>()
+                .AddEffect<IsHungry>(false);
 
-            builder.AddAction<SleepAction>()
-                .SetTarget<BedTarget>()
-                .AddEffect<IsTired>(true);
+            //builder.AddAction<BuyGroceriesAction>()
+            //    .SetTarget<GroceryStoreTarget>()
+            //    .AddCondition<HasMoney>(Comparison.GreaterThan, 0)
+            //    .AddEffect<HasFood>(false);
 
-            builder.AddAction<BuyGroceriesAction>()
-                .SetTarget<GroceryTarget>()
-                .AddEffect<HasFood>(false);
+            //builder.AddAction<WorkAction>()
+            //    .SetTarget<WorkplaceTarget>()
+            //    .AddEffect<HasMoney>(true)
+            //    .AddEffect<IsTired>(true);
 
-            builder.AddAction<WorkAction>()
-                .SetTarget<WorkTarget>()
-                .AddEffect<IsAtWork>(false);
+            //builder.AddAction<SleepAction>()
+            //    .SetTarget<BedTarget>()
+            //    .AddEffect<IsTired>(false);
 
             // World Sensors
-            //builder.AddWorldSensor<IsTiredSensor>()                                       // Sensors allow the agent to perceive the state of the world, which is necessary for it to make decisions and plan its actions.
+            builder.AddWorldSensor<IsHungrySensor>()
+                .SetKey<IsHungry>();
+            //builder.AddWorldSensor<HasMoneySensor>()
+            //    .SetKey<HasMoney>();
+            //builder.AddWorldSensor<IsTiredSensor>()
             //    .SetKey<IsTired>();
-            //builder.AddWorldSensor<IsHungrySensor>()
-            //    .SetKey<IsHungry>();
             //builder.AddWorldSensor<HasFoodSensor>()
             //    .SetKey<HasFood>();
-            //builder.AddWorldSensor<IsAtWorkSensor>()
-            //    .SetKey<IsAtWork>();
 
             // Target Sensors
-            builder.AddTargetSensor<WanderTargetSensor>()                                   // A target sensor helps determine the position for a given TargetKey. The TargetState is used by the Planner to determine distance between Actions and the position an Agent should move to before performing the action.
+            builder.AddTargetSensor<WanderTargetSensor>()
                 .SetTarget<WanderTarget>();
 
             builder.AddTargetSensor<KitchenTargetSensor>()
-                .SetTarget<FoodTarget>();
-
-            builder.AddTargetSensor<BedTargetSensor>()
-                .SetTarget<BedTarget>();
-            
-            builder.AddTargetSensor<GroceryStoreTargetSensor>()
-                .SetTarget<GroceryTarget>();
-
-            builder.AddTargetSensor<WorkplaceTargetSensor>()
-                .SetTarget<WorkTarget>();
+                .SetTarget<KitchenTarget>();
+            //builder.AddTargetSensor<GroceryStoreTargetSensor>()
+            //    .SetTarget<GroceryStoreTarget>();
+            //builder.AddTargetSensor<WorkplaceTargetSensor>()
+            //    .SetTarget<WorkplaceTarget>();
+            //builder.AddTargetSensor<BedTargetSensor>()
+            //    .SetTarget<BedTarget>();
 
             return builder.Build();
         }

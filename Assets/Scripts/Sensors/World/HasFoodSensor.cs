@@ -9,15 +9,18 @@ namespace NpcDailyRoutines
 {
     public class HasFoodSensor : LocalWorldSensorBase
     {
-        public override void Created() { }
+        private KitchenSource kitchenSource;
+        public override void Created()
+        {
+            kitchenSource = GameObject.FindAnyObjectByType<KitchenSource>();
+        }
 
         public override void Update() { }
 
         public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
         {
             // Check if there's food in the kitchen
-            var kitchen = references.GetCachedComponent<KitchenSource>();
-            return new SenseValue(kitchen.food > 0);
+            return new SenseValue(kitchenSource.food > 0);
         }
     }
 }
