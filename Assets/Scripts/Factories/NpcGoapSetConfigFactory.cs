@@ -17,11 +17,11 @@ namespace NpcDailyRoutines
                 .AddCondition<IsWandering>(Comparison.GreaterThanOrEqual, 1);
 
             builder.AddGoal<EatGoal>()
-                .AddCondition<IsHungry>(Comparison.SmallerThan, 1);
+                .AddCondition<IsHungry>(Comparison.GreaterThan, 80);
             //builder.AddGoal<WorkGoal>()
             //    .AddCondition<HasMoney>(Comparison.SmallerThan, 1);
-            //builder.AddGoal<SleepGoal>()
-            //    .AddCondition<IsTired>(Comparison.GreaterThanOrEqual, 1);
+            builder.AddGoal<SleepGoal>()
+                .AddCondition<IsTired>(Comparison.GreaterThan, 80);
 
             // Actions
             builder.AddAction<WanderAction>()
@@ -30,7 +30,7 @@ namespace NpcDailyRoutines
 
             builder.AddAction<EatAction>()
                 .SetTarget<KitchenTarget>()
-                .AddEffect<IsHungry>(false);
+                .AddEffect<IsHungry>(true);
 
             //builder.AddAction<BuyGroceriesAction>()
             //    .SetTarget<GroceryStoreTarget>()
@@ -42,17 +42,17 @@ namespace NpcDailyRoutines
             //    .AddEffect<HasMoney>(true)
             //    .AddEffect<IsTired>(true);
 
-            //builder.AddAction<SleepAction>()
-            //    .SetTarget<BedTarget>()
-            //    .AddEffect<IsTired>(false);
+            builder.AddAction<SleepAction>()
+                .SetTarget<BedTarget>()
+                .AddEffect<IsTired>(true);
 
             // World Sensors
             builder.AddWorldSensor<IsHungrySensor>()
                 .SetKey<IsHungry>();
             //builder.AddWorldSensor<HasMoneySensor>()
             //    .SetKey<HasMoney>();
-            //builder.AddWorldSensor<IsTiredSensor>()
-            //    .SetKey<IsTired>();
+            builder.AddWorldSensor<IsTiredSensor>()
+                .SetKey<IsTired>();
             //builder.AddWorldSensor<HasFoodSensor>()
             //    .SetKey<HasFood>();
 
@@ -66,8 +66,8 @@ namespace NpcDailyRoutines
             //    .SetTarget<GroceryStoreTarget>();
             //builder.AddTargetSensor<WorkplaceTargetSensor>()
             //    .SetTarget<WorkplaceTarget>();
-            //builder.AddTargetSensor<BedTargetSensor>()
-            //    .SetTarget<BedTarget>();
+            builder.AddTargetSensor<BedTargetSensor>()
+                .SetTarget<BedTarget>();
 
             return builder.Build();
         }

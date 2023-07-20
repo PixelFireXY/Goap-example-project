@@ -17,7 +17,7 @@ namespace NpcDailyRoutines
         private void FixedUpdate()
         {
             // Increase the hunger over time. The exact value should be balanced according to your game design.
-            this.hunger += Time.fixedDeltaTime * 1f;
+            //this.hunger += Time.fixedDeltaTime * 1f;
         }
     }
 }
