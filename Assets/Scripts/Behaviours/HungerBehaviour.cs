@@ -6,18 +6,17 @@ namespace NpcDailyRoutines
 {
     public class HungerBehaviour : MonoBehaviour
     {
-        public float hunger = 0;
+        public float Hunger = 0;
 
         private void Awake()
         {
             // NPC starts not being hungry.
-            this.hunger = 0;
+            Hunger = 0;
         }
 
         private void FixedUpdate()
         {
-            // Increase the hunger over time. The exact value should be balanced according to your game design.
-            //this.hunger += Time.fixedDeltaTime * 1f;
+            Hunger += Time.fixedDeltaTime * 1f;
         }
     }
 }

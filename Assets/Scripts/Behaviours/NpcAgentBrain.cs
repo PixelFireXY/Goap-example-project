@@ -41,17 +41,13 @@ namespace NpcDailyRoutines
 
         private void UpdateNeeds()
         {
-            // NPC gets hungry and tired over time
-            this.hunger.hunger = Mathf.Min(this.hunger.hunger + Time.fixedDeltaTime, 100f);
-            this.tiredness.tiredness = Mathf.Min(this.tiredness.tiredness + Time.fixedDeltaTime, 100f);
-
             // Determine new goal based on current needs
             this.DetermineGoal();
         }
 
         private void DetermineGoal()
         {
-            if (this.hunger.hunger > 80)
+            if (this.hunger.Hunger > 80)
             {
                 // If NPC is hungry and has money, it sets the goal to eat
                 if (this.money.money > 0)

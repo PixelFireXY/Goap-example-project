@@ -21,10 +21,10 @@ namespace NpcDailyRoutines
 
         public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
         {
-            if (data.Hunger.hunger > 20)
+            if (data.Hunger.Hunger > 20)
             {
                 var eatNutrition = context.DeltaTime * 20f;
-                data.Hunger.hunger -= eatNutrition;
+                data.Hunger.Hunger -= eatNutrition;
 
                 return ActionRunState.Continue;
             }

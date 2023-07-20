@@ -17,11 +17,11 @@ namespace NpcDailyRoutines
                 .AddCondition<IsWandering>(Comparison.GreaterThanOrEqual, 1);
 
             builder.AddGoal<EatGoal>()
-                .AddCondition<IsHungry>(Comparison.GreaterThan, 80);
-            //builder.AddGoal<WorkGoal>()
-            //    .AddCondition<HasMoney>(Comparison.SmallerThan, 1);
+                .AddCondition<IsHungry>(Comparison.GreaterThan, 1);
+            builder.AddGoal<WorkGoal>()
+                .AddCondition<HasMoney>(Comparison.SmallerThan, 1);
             builder.AddGoal<SleepGoal>()
-                .AddCondition<IsTired>(Comparison.GreaterThan, 80);
+                .AddCondition<IsTired>(Comparison.GreaterThan, 1);
 
             // Actions
             builder.AddAction<WanderAction>()
@@ -32,29 +32,29 @@ namespace NpcDailyRoutines
                 .SetTarget<KitchenTarget>()
                 .AddEffect<IsHungry>(true);
 
-            //builder.AddAction<BuyGroceriesAction>()
-            //    .SetTarget<GroceryStoreTarget>()
-            //    .AddCondition<HasMoney>(Comparison.GreaterThan, 0)
-            //    .AddEffect<HasFood>(false);
+            builder.AddAction<BuyGroceriesAction>()
+                .SetTarget<GroceryStoreTarget>()
+                .AddCondition<HasMoney>(Comparison.GreaterThan, 0)
+                .AddEffect<HasFood>(false);
 
-            //builder.AddAction<WorkAction>()
-            //    .SetTarget<WorkplaceTarget>()
-            //    .AddEffect<HasMoney>(true)
-            //    .AddEffect<IsTired>(true);
+            builder.AddAction<WorkAction>()
+                .SetTarget<WorkplaceTarget>()
+                .AddEffect<HasMoney>(true)
+                .AddEffect<IsTired>(true);
 
             builder.AddAction<SleepAction>()
                 .SetTarget<BedTarget>()
                 .AddEffect<IsTired>(true);
 
-            // World Sensors
+            //World Sensors
             builder.AddWorldSensor<IsHungrySensor>()
                 .SetKey<IsHungry>();
-            //builder.AddWorldSensor<HasMoneySensor>()
-            //    .SetKey<HasMoney>();
+            builder.AddWorldSensor<HasMoneySensor>()
+                .SetKey<HasMoney>();
             builder.AddWorldSensor<IsTiredSensor>()
                 .SetKey<IsTired>();
-            //builder.AddWorldSensor<HasFoodSensor>()
-            //    .SetKey<HasFood>();
+            builder.AddWorldSensor<HasFoodSensor>()
+                .SetKey<HasFood>();
 
             // Target Sensors
             builder.AddTargetSensor<WanderTargetSensor>()
@@ -62,10 +62,10 @@ namespace NpcDailyRoutines
 
             builder.AddTargetSensor<KitchenTargetSensor>()
                 .SetTarget<KitchenTarget>();
-            //builder.AddTargetSensor<GroceryStoreTargetSensor>()
-            //    .SetTarget<GroceryStoreTarget>();
-            //builder.AddTargetSensor<WorkplaceTargetSensor>()
-            //    .SetTarget<WorkplaceTarget>();
+            builder.AddTargetSensor<GroceryStoreTargetSensor>()
+                .SetTarget<GroceryStoreTarget>();
+            builder.AddTargetSensor<WorkplaceTargetSensor>()
+                .SetTarget<WorkplaceTarget>();
             builder.AddTargetSensor<BedTargetSensor>()
                 .SetTarget<BedTarget>();
 
