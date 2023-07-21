@@ -53,13 +53,11 @@ namespace NpcDailyRoutines
         {
             if (hunger.Hunger > 80)
             {
-                // If NPC is hungry and has money, it sets the goal to eat
                 if (kitchens[0].food > 0)
                 {
                     agent.SetGoal<EatGoal>(false);
                 }
-                // If no money, NPC sets the goal to go to work
-                else if (money.money > 0)
+                else if (money.money >= 50)
                 {
                     agent.SetGoal<GroceryGoal>(false);
                 }
@@ -70,12 +68,10 @@ namespace NpcDailyRoutines
             }
             else if (tiredness.tiredness > 80)
             {
-                // If NPC is tired, it sets the goal to sleep
                 agent.SetGoal<SleepGoal>(false);
             }
             else
             {
-                // If no urgent needs, NPC can wander around
                 agent.SetGoal<WanderGoal>(false);
             }
         }
