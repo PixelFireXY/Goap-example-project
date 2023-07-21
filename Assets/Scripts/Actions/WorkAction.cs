@@ -29,7 +29,7 @@ namespace NpcDailyRoutines
 
             data.Money.money += 50f;
 
-            data.Tiredness.tiredness += 50;
+            data.Tiredness.tiredness += 70;
 
             return ActionRunState.Stop;
         }
