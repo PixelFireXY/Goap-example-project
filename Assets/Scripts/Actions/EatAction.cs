@@ -11,12 +11,15 @@ namespace NpcDailyRoutines
 {
     public class EatAction : ActionBase<EatAction.Data>
     {
+        private KitchenSource[] kitchens;
+
         public override void Created()
         {
         }
 
         public override void Start(IMonoAgent agent, Data data)
         {
+            kitchens = GameObject.FindObjectsOfType<KitchenSource>();
         }
 
         public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)
@@ -28,6 +31,8 @@ namespace NpcDailyRoutines
 
                 return ActionRunState.Continue;
             }
+
+            kitchens[0].food--;
 
             return ActionRunState.Stop;
         }

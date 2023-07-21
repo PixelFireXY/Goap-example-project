@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70d12ad645ccdf44a9a9d79b9d03b895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  food: 0
+  food: 5
 --- !u!1 &277974838
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 0
-  startMoney: 99999
+  startMoney: 10000
 --- !u!114 &277974846
 MonoBehaviour:
   m_ObjectHideFlags: 0
