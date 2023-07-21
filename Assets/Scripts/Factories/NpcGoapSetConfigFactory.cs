@@ -35,18 +35,15 @@ namespace NpcDailyRoutines
 
             builder.AddAction<EatAction>()
                 .SetTarget<KitchenTarget>()
-                .AddEffect<IsHungry>(false)
-                .AddCondition<HasFood>(Comparison.GreaterThanOrEqual, 1);
+                .AddEffect<IsHungry>(false);
 
             builder.AddAction<BuyGroceriesAction>()
                 .SetTarget<GroceryStoreTarget>()
-                .AddEffect<HasFood>(true)
-                .AddCondition<HasMoney>(Comparison.GreaterThanOrEqual, 1);
+                .AddEffect<HasFood>(true);
 
             builder.AddAction<WorkAction>()
                 .SetTarget<WorkplaceTarget>()
-                .AddEffect<HasMoney>(true)
-                .AddCondition<HasMoney>(Comparison.SmallerThanOrEqual, 0);
+                .AddEffect<HasMoney>(true);
 
             builder.AddAction<SleepAction>()
                 .SetTarget<BedTarget>()

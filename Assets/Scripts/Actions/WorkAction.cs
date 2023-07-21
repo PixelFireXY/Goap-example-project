@@ -17,8 +17,7 @@ namespace NpcDailyRoutines
 
         public override void Start(IMonoAgent agent, Data data)
         {
-            // Let's say shopping takes 2 hours
-            data.Timer = 8f;
+            data.Timer = 2f;
         }
 
         public override ActionRunState Perform(IMonoAgent agent, Data data, ActionContext context)

@@ -14,75 +14,83 @@ namespace NpcDailyRoutines
         private WorkBehaviour work;
         private MoneyBehaviour money;
 
+        private KitchenSource[] kitchens;
+
         private void Awake()
         {
-            this.agent = this.GetComponent<AgentBehaviour>();
+            agent = GetComponent<AgentBehaviour>();
 
-            this.hunger = this.GetComponent<HungerBehaviour>();
-            this.tiredness = this.GetComponent<TirednessBehaviour>();
-            this.work = this.GetComponent<WorkBehaviour>();
-            this.money = this.GetComponent<MoneyBehaviour>();
+            hunger = GetComponent<HungerBehaviour>();
+            tiredness = GetComponent<TirednessBehaviour>();
+            work = GetComponent<WorkBehaviour>();
+            money = GetComponent<MoneyBehaviour>();
+
+            kitchens = GameObject.FindObjectsOfType<KitchenSource>();
         }
 
         private void OnEnable()
         {
-            this.agent.Events.OnActionStop += this.OnActionStop;
+            agent.Events.OnActionStop += OnActionStop;
         }
 
         private void OnDisable()
         {
-            this.agent.Events.OnActionStop -= this.OnActionStop;
+            agent.Events.OnActionStop -= OnActionStop;
         }
 
         private void FixedUpdate()
         {
-            this.UpdateNeeds();
+            UpdateNeeds();
         }
 
         private void UpdateNeeds()
         {
             // Determine new goal based on current needs
-            this.DetermineGoal();
+            DetermineGoal();
         }
 
         private void DetermineGoal()
         {
-            if (this.hunger.Hunger > 80)
+            if (hunger.Hunger > 80)
             {
                 // If NPC is hungry and has money, it sets the goal to eat
-                if (this.money.money > 0)
+                if (kitchens[0].food > 0)
                 {
-                    this.agent.SetGoal<EatGoal>(false);
+                    agent.SetGoal<EatGoal>(false);
                 }
                 // If no money, NPC sets the goal to go to work
+                else if (money.money > 0)
+                {
+                    agent.SetGoal<GroceryGoal>(false);
+                }
                 else
                 {
-                    this.agent.SetGoal<WorkGoal>(false);
+                    agent.SetGoal<WorkGoal>(false);
                 }
             }
-            else if (this.tiredness.tiredness > 80)
+            else if (tiredness.tiredness > 80)
             {
                 // If NPC is tired, it sets the goal to sleep
-                this.agent.SetGoal<SleepGoal>(false);
+                agent.SetGoal<SleepGoal>(false);
             }
             else
             {
                 // If no urgent needs, NPC can wander around
-                this.agent.SetGoal<WanderGoal>(false);
+                agent.SetGoal<WanderGoal>(false);
             }
         }
 
         private void OnActionStop(IActionBase action)
         {
             // When an action stops, reevaluate needs
-            this.UpdateNeeds();
+            UpdateNeeds();
 
             // If the current goal is related to eating or sleeping
-            if (this.agent.CurrentGoal is EatGoal || this.agent.CurrentGoal is SleepGoal)
+            if (agent.CurrentGoal is EatGoal || agent.CurrentGoal is SleepGoal)
                 return;
 
             // Re-determine goals
-            this.DetermineGoal();
+            DetermineGoal();
         }
     }
 }
