@@ -14,6 +14,8 @@ namespace NpcDailyRoutines
 {
     public class BuyGroceriesAction : ActionBase<BuyGroceriesAction.Data>
     {
+        private KitchenSource[] kitchens;
+
         public override void Start(IMonoAgent agent, Data data)
         {
             // Check if agent has enough money to buy groceries (let's assume it costs 50)
@@ -22,6 +24,8 @@ namespace NpcDailyRoutines
                 // Can't perform the action due to lack of money
                 return;
             }
+
+            kitchens = GameObject.FindObjectsOfType<KitchenSource>();
 
             // Let's say shopping takes 2 hours
             data.Timer = 2f;
@@ -38,7 +42,7 @@ namespace NpcDailyRoutines
             data.Money.money -= 50f;
 
             // Increase groceries by 5 when shopping is done
-            data.Kitchen.food += 5;
+            kitchens[0].food += 5;
 
             return ActionRunState.Stop;
         }
@@ -59,8 +63,6 @@ namespace NpcDailyRoutines
 
             [GetComponent]
             public MoneyBehaviour Money { get; set; }
-            [GetComponent]
-            public KitchenSource Kitchen { get; set; }
         }
     }
 
