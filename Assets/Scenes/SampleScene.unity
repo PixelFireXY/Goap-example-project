@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 0
-  startMoney: 10000
+  startMoney: 0
 --- !u!114 &277974846
 MonoBehaviour:
   m_ObjectHideFlags: 0
