@@ -17,13 +17,14 @@ namespace NpcDailyRoutines
                 .AddCondition<IsWandering>(Comparison.GreaterThanOrEqual, 1);
 
             builder.AddGoal<EatGoal>()
-                .AddCondition<IsHungry>(Comparison.SmallerThanOrEqual, 0)
-                .AddCondition<HasFood>(Comparison.GreaterThanOrEqual, 1);
+                .AddCondition<IsHungry>(Comparison.SmallerThanOrEqual, 0);
+
             builder.AddGoal<GroceryGoal>()
-                .AddCondition<HasFood>(Comparison.GreaterThanOrEqual, 1)
-                .AddCondition<HasMoney>(Comparison.GreaterThanOrEqual, 1);
+                .AddCondition<HasFood>(Comparison.GreaterThanOrEqual, 1);
+
             builder.AddGoal<WorkGoal>()
                 .AddCondition<HasMoney>(Comparison.GreaterThanOrEqual, 1);
+
             builder.AddGoal<SleepGoal>()
                 .AddCondition<IsTired>(Comparison.SmallerThanOrEqual, 0);
 
@@ -34,22 +35,25 @@ namespace NpcDailyRoutines
 
             builder.AddAction<EatAction>()
                 .SetTarget<KitchenTarget>()
-                .AddCondition<HasFood>(Comparison.GreaterThanOrEqual, 1)
-                .AddEffect<IsHungry>(false);
+                .AddEffect<IsHungry>(false)
+                .AddCondition<HasFood>(Comparison.GreaterThanOrEqual, 1);
+            //.AddEffect<HasFood>(true);
 
             builder.AddAction<BuyGroceriesAction>()
                 .SetTarget<GroceryStoreTarget>()
-                .AddCondition<HasMoney>(Comparison.GreaterThanOrEqual, 1)
-                .AddEffect<HasFood>(true);
+                .AddEffect<HasFood>(true)
+                .AddCondition<HasMoney>(Comparison.GreaterThanOrEqual, 1);
+                //.AddCondition<HasFood>(Comparison.SmallerThanOrEqual, 0);
 
             builder.AddAction<WorkAction>()
                 .SetTarget<WorkplaceTarget>()
-                .AddEffect<HasMoney>(true)
-                .AddEffect<IsTired>(true);
+                .AddEffect<HasMoney>(true);
+                //.AddCondition<HasMoney>(Comparison.SmallerThanOrEqual, 0);
 
             builder.AddAction<SleepAction>()
                 .SetTarget<BedTarget>()
                 .AddEffect<IsTired>(false);
+                //.AddCondition<IsTired>(Comparison.SmallerThanOrEqual, 0);
 
             // World Sensors
             builder.AddTargetSensor<WanderTargetSensor>()
