@@ -11,8 +11,6 @@ namespace NpcDailyRoutines
 {
     public class WorkAction : ActionBase<WorkAction.Data>
     {
-
-
         public override void Created()
         {
         }
@@ -30,8 +28,9 @@ namespace NpcDailyRoutines
             if (data.Timer > 0)
                 return ActionRunState.Continue;
 
-            // Add the money
             data.Money.money += 50f;
+
+            data.Tiredness.tiredness += 50;
 
             return ActionRunState.Stop;
         }
@@ -45,10 +44,11 @@ namespace NpcDailyRoutines
             public ITarget Target { get; set; }
             public float Timer { get; set; }
 
-
-
             [GetComponent]
             public MoneyBehaviour Money { get; set; }
+
+            [GetComponent]
+            public TirednessBehaviour Tiredness { get; set; }
         }
     } 
 }
