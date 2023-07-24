@@ -14,10 +14,10 @@ namespace NpcDailyRoutines
 
             // Goals
             builder.AddGoal<WanderGoal>()
-                .AddCondition<IsWandering>(Comparison.GreaterThanOrEqual, 1);
+                .AddCondition<IsWandering>(Comparison.SmallerThanOrEqual, 0);
 
-            builder.AddGoal<EatGoal>()
-                .AddCondition<IsHungry>(Comparison.SmallerThanOrEqual, 0);
+            builder.AddGoal<EatGoal>()                                                  // The goal that must be satisfied
+                .AddCondition<IsHungry>(Comparison.SmallerThanOrEqual, 0);              // The condition to satisfy the goal
 
             builder.AddGoal<GroceryGoal>()
                 .AddCondition<HasFood>(Comparison.GreaterThanOrEqual, 1);
@@ -31,11 +31,11 @@ namespace NpcDailyRoutines
             // Actions
             builder.AddAction<WanderAction>()
                 .SetTarget<WanderTarget>()
-                .AddEffect<IsWandering>(true);
+                .AddEffect<IsWandering>(false);
 
-            builder.AddAction<EatAction>()
-                .SetTarget<KitchenTarget>()
-                .AddEffect<IsHungry>(false);
+            builder.AddAction<EatAction>()                                              // This is the action to satisfy the goal
+                .SetTarget<KitchenTarget>()                                             // This is the target of the goal (the action will be execute after the min distance is reached)
+                .AddEffect<IsHungry>(false);                                            // This is the value to set to the variable after the action is complete
 
             builder.AddAction<BuyGroceriesAction>()
                 .SetTarget<GroceryStoreTarget>()
@@ -50,11 +50,8 @@ namespace NpcDailyRoutines
                 .AddEffect<IsTired>(false);
 
             // World Sensors
-            builder.AddTargetSensor<WanderTargetSensor>()
-                .SetTarget<WanderTarget>();
-
-            builder.AddWorldSensor<IsHungrySensor>()
-                .SetKey<IsHungry>();
+            builder.AddWorldSensor<IsHungrySensor>()                                    // This is the Sensor that checks the variable inside the MonoBehaviour
+                .SetKey<IsHungry>();                                                    // This is the variable set to true or false by the sensor
             builder.AddWorldSensor<HasMoneySensor>()
                 .SetKey<HasMoney>();
             builder.AddWorldSensor<IsTiredSensor>()
@@ -63,8 +60,10 @@ namespace NpcDailyRoutines
                 .SetKey<HasFood>();
 
             // Target Sensors
-            builder.AddTargetSensor<KitchenTargetSensor>()
-                .SetTarget<KitchenTarget>();
+            builder.AddTargetSensor<WanderTargetSensor>()
+                .SetTarget<WanderTarget>();
+            builder.AddTargetSensor<KitchenTargetSensor>()                              // This is the Target Sensor to check the Source in the enviroment
+                .SetTarget<KitchenTarget>();                                            // This is the set of the target setted by the Target Sensor
             builder.AddTargetSensor<GroceryStoreTargetSensor>()
                 .SetTarget<GroceryStoreTarget>();
             builder.AddTargetSensor<WorkplaceTargetSensor>()
