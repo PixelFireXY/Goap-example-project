@@ -20,7 +20,7 @@ namespace NpcDailyRoutines
         public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
         {
             // Check if there's food in the kitchen
-            return new SenseValue(kitchenSource.food > 0);
+            return new SenseValue(kitchenSource.food);
         }
     }
 }

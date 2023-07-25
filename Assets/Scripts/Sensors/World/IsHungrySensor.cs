@@ -16,7 +16,7 @@ namespace NpcDailyRoutines
         public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
         {
             var hungerBehaviour = references.GetCachedComponent<HungerBehaviour>();
-            return new SenseValue(hungerBehaviour.Hunger > 80);
+            return new SenseValue((int)hungerBehaviour.Hunger);
         }
     }
 }

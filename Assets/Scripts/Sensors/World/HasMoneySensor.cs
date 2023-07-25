@@ -17,7 +17,7 @@ namespace NpcDailyRoutines
         public override SenseValue Sense(IMonoAgent agent, IComponentReference references)
         {
             var moneyBehaviour = references.GetCachedComponent<MoneyBehaviour>();
-            return new SenseValue(moneyBehaviour.money > 0);
+            return new SenseValue((int)moneyBehaviour.money);
         }
     }
 }
